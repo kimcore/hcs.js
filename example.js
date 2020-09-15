@@ -9,7 +9,8 @@ const hcs = require('./src')
 const example = async () => {
     console.log('학교 이름을 입력해주세요.')
     const schoolName = (await it.next()).value
-    const schools = Array(await hcs.searchSchool(schoolName))
+    const schools = await hcs.searchSchool(schoolName)
+    console.log(schools)
     if (schools.length === 0) {
         console.log('검색된 학교가 없습니다.')
         return

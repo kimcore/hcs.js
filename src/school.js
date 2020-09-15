@@ -12,5 +12,5 @@ module.exports = async schoolName => {
             endpoint: school['atptOfcdcConctUrl'],
             schoolCode: school['orgCode']
         }
-    })[0]
+    })
 }
