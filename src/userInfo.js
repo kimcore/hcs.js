@@ -9,7 +9,7 @@ module.exports = async (endpoint, token) => {
             orgCode: user['orgCode'],
             userPNo: user['userPNo']
         }
-        const userinfo = await request('/userrefresh', 'POST', data, endpoint, {'Authorization': token})
+        const userinfo = (await request('/userrefresh', 'POST', data, endpoint, {'Authorization': token}))['UserInfo']
         list.push({
             registerRequired: userinfo['registerDtm'] === undefined,
             registeredAt: userinfo['registerDtm'],
