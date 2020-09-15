@@ -1,0 +1,30 @@
+{
+  "name": "hcs.js",
+  "keywords": [
+    "selfcheck",
+    "hcs",
+    "korea"
+  ],
+  "author": {
+    "name": "kimcore",
+    "email": "kimcoreovo@gmail.com",
+    "url": "https://github.com/kimcore"
+  },
+  "main": "src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kimcore/hcs.js.git"
+  },
+  "homepage": "https://github.com/kimcore/hcs.js",
+  "bugs": {
+    "url": "https://github.com/kimcore/hcs.js/issues",
+    "email": "kimcoreovo@gmail.com"
+  },
+  "license": "MIT",
+  "description": "교육부 학생 건강상태 자가진단 라이브러리",
+  "version": "1.0.0",
+  "dependencies": {
+    "jsencrypt": "^3.0.0-rc.1",
+    "node-fetch": "^2.6.1"
+  }
+}
