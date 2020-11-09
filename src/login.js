@@ -3,21 +3,20 @@ const encrypt = require('./encrypt')
 
 module.exports = async (endpoint, schoolCode, name, birthday) => {
     const data = {
-        orgcode: schoolCode,
+        birthday: encrypt(birthday),
+        loginType: 'school',
         name: encrypt(name),
-        birthday: encrypt(birthday)
+        orgCode: schoolCode,
+        stdntPNo: null
     }
-    const response = await request('/loginwithschool', 'POST', data, endpoint)
+    const response = await request('/v2/findUser', 'POST', data, endpoint)
     return response.isError ? {
         success: false,
         message: response['message']
     } : {
         success: true,
-        agreementRequired: response['infAgrmYn'] === 'N',
-        registerRequired: response['registerDtm'] === undefined,
-        registeredAt: response['registerDtm'],
-        registeredAtYMD: response['registerYmd'],
-        schoolName: response['orgname'],
+        agreementRequired: response['pInfAgrmYn'] === 'N',
+        schoolName: response['orgName'],
         name: name,
         birthday: birthday,
         token: response['token']

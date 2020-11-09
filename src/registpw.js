@@ -6,6 +6,6 @@ module.exports = async (endpoint, token, password) => {
         deviceUuid: '',
         password: encrypt(password)
     }
-    let response = await request('/registpw', 'POST', data, endpoint, {'Authorization': token})
-    return {success: response.result}
+    const response = await request('/v2/registerPassword', 'POST', data, endpoint, {'Authorization': token})
+    return {success: response}
 }

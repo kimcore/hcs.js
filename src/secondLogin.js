@@ -6,7 +6,7 @@ module.exports = async (endpoint, token, password) => {
         deviceUuid: '',
         password: encrypt(password)
     }
-    let response = await request('/secondlogin', 'POST', data, endpoint, {'Authorization': token})
+    const response = await request('/v2/validatePassword', 'POST', data, endpoint, {'Authorization': token})
     return response.isError ? {
         success: false,
         failCount: response['data']['remainMinutes'] ? 5 : response['data']['failCnt'],

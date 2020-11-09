@@ -10,7 +10,6 @@ const example = async () => {
     console.log('학교 이름을 입력해주세요.')
     const schoolName = (await it.next()).value
     const schools = await hcs.searchSchool(schoolName)
-    console.log(schools)
     if (schools.length === 0) {
         console.log('검색된 학교가 없습니다.')
         return
@@ -62,24 +61,18 @@ const example = async () => {
     }
 
     const survey = {
-        // 학생의 몸에 열이 있나요?
+        // 학생 본인이 37.5도 이상 발열 또는 발열감이 있나요?
         Q1: false,
 
-        // 학생에게 코로나19가 의심되는 증상이 있나요 ?
-        // 없을경우 false, 있을경우 [기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각·미각 소실] (true or false)
+        // 학생에게 코로나19가 의심되는 임상증상이 있나요?
+        // 기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각·미각 소실 또는 폐렴 등
         Q2: false,
 
-        // 학생이 최근(14일 이내) 해외여행을 다녀온 사실이 있나요?
+        // 학생 본인 또는 동거인이 방역당국에 의해 현재 자가격리가 이루어지고 있나요?
         Q3: false,
-
-        // 동거가족 중 최근(14일 이내) 해외여행을 다녀온 사실이 있나요?
-        Q4: false,
-
-        // 동거가족 중 현재 자가격리 중 인 가족이 있나요?
-        Q5: false
     }
     const result = await hcs.registerSurvey(school.endpoint, login.token, survey)
     console.log(`${result.registeredAt} ${login.name}님 자가진단을 완료하셨습니다.`)
 }
 
-example().then(console.log)
+example().then()

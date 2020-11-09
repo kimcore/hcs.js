@@ -1,15 +1,14 @@
 const request = require('./request')
 
 module.exports = async (endpoint, token) => {
-    const response = await request('/selectGroupList', 'POST', {}, endpoint, {'Authorization': token})
-    const users = response['groupList']
+    const response = await request('/v2/selectUserGroup', 'POST', {}, endpoint, {'Authorization': token})
     const list = []
-    for (const user of users) {
+    for (const user of response) {
         const data = {
             orgCode: user['orgCode'],
             userPNo: user['userPNo']
         }
-        const userinfo = (await request('/userrefresh', 'POST', data, endpoint, {'Authorization': token}))['UserInfo']
+        const userinfo = await request('/v2/getUserInfo', 'POST', data, endpoint, {'Authorization': token})
         list.push({
             registerRequired: userinfo['registerDtm'] === undefined,
             registeredAt: userinfo['registerDtm'],

@@ -11,5 +11,11 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
         },
         body: method === 'POST' ? data : undefined
     })
-    return response.json()
+    let value
+    try {
+        value = await response.json()
+    } catch (e) {
+        value = await response.text()
+    }
+    return value
 }
