@@ -1,10 +1,12 @@
 const request = require('./request')
+const userInfo = require('./userInfo')
 
 module.exports = async (endpoint, token, survey = {
     Q1: false,
     Q2: false,
     Q3: false
 }) => {
+    const user = await userInfo(endpoint, token)
     const data = {
         deviceUuid: '',
         rspns00: (!survey.Q1 && !survey.Q2 && !survey.Q3) ? 'Y' : 'N',
@@ -23,8 +25,9 @@ module.exports = async (endpoint, token, survey = {
         rspns13: null,
         rspns14: null,
         rspns15: null,
+        upperToken: user[0].token
     }
-    const response = await request('/registerServey', 'POST', data, endpoint, {'Authorization': token})
+    const response = await request('/registerServey', 'POST', data, endpoint, {'Authorization': user[0].token})
     return {
         registeredAt: response['registerDtm']
     }

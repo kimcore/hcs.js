@@ -2,7 +2,7 @@ const school = require('./school')
 const login = require('./login')
 const updateAgreement = require('./updateAgreement')
 const checkpw = require('./checkpw')
-const registpw = require('./registpw')
+const registerPassword = require('./registerPassword')
 const secondLogin = require('./secondLogin')
 const userInfo = require('./userInfo')
 const registerSurvey = require('./registerSurvey')
@@ -12,7 +12,7 @@ module.exports = {
     login: login,
     updateAgreement: updateAgreement,
     passwordExists: checkpw,
-    registerPassword: registpw,
+    registerPassword: registerPassword,
     secondLogin: secondLogin,
     userInfo: userInfo,
     registerSurvey: registerSurvey
