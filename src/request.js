@@ -29,6 +29,5 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
         value = JSON.parse(value)
     } catch (ignored) {
     }
-    console.log(path + '    ' + (typeof value === 'string' ? value : JSON.stringify(value)))
     return value
 }
