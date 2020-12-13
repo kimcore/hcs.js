@@ -12,6 +12,7 @@ module.exports = async (endpoint, token, password) => {
         failCount: response['data']['remainMinutes'] ? 5 : response['data']['failCnt'],
         remainingMinutes: Number(response['data']['remainMinutes'] ? response['data']['remainMinutes'] : 0),
     } : {
-        success: true
+        success: true,
+        token: response
     }
 }

@@ -47,11 +47,15 @@ const example = async () => {
         await hcs.registerPassword(school.endpoint, login.token, password)
     }
 
+    let token // 비밀번호로 로그인하여 새로운 토큰을 받아옵니다.
     while (true) {
         console.log('비밀번호 4자리를 입력해주세요.')
         const password = (await it.next()).value
         const secondLogin = await hcs.secondLogin(school.endpoint, login.token, password)
-        if (secondLogin.success) break
+        if (secondLogin.success) {
+            token = secondLogin.token
+            break
+        }
         if (secondLogin.remainingMinutes !== 0) {
             console.log(`5회 이상 실패하여 ${secondLogin.remainingMinutes}분 후에 재시도가 가능합니다.`)
             continue
@@ -71,7 +75,7 @@ const example = async () => {
         // 학생 본인 또는 동거인이 방역당국에 의해 현재 자가격리가 이루어지고 있나요?
         Q3: false,
     }
-    const result = await hcs.registerSurvey(school.endpoint, login.token, survey)
+    const result = await hcs.registerSurvey(school.endpoint, token, survey)
     console.log(`${result.registeredAt} ${login.name}님 자가진단을 완료하셨습니다.`)
 }
 

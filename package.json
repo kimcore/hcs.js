@@ -22,7 +22,7 @@
   },
   "license": "MIT",
   "description": "교육부 학생 건강상태 자가진단 라이브러리",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "dependencies": {
     "jsencrypt": "^3.0.0-rc.1",
     "node-fetch": "^2.6.1"

@@ -24,11 +24,11 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
         },
         body: method === 'POST' ? data : undefined
     })
-    let value
+    let value = await response.text()
     try {
-        value = await response.json()
-    } catch (e) {
-        value = await response.text()
+        value = JSON.parse(value)
+    } catch (ignored) {
     }
+    console.log(path + '    ' + (typeof value === 'string' ? value : JSON.stringify(value)))
     return value
 }
