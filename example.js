@@ -12,7 +12,7 @@ const example = async () => {
     const schools = await hcs.searchSchool(schoolName)
     if (schools.length === 0) {
         console.log('검색된 학교가 없습니다.')
-        return
+        process.exit(0)
     }
     const school = schools[0]
 
@@ -25,7 +25,7 @@ const example = async () => {
     const login = await hcs.login(school.endpoint, school.schoolCode, name, birthday)
     if (!login.success) {
         console.log('로그인에 실패했습니다.')
-        return
+        process.exit(0)
     }
     if (login.agreementRequired) {
         console.log('개인정보 처리 방침 (https://hcs.eduro.go.kr/agreement) 에 동의하십니까? 동의하실 경우, 엔터를 눌러주세요.')
@@ -77,6 +77,7 @@ const example = async () => {
     }
     const result = await hcs.registerSurvey(school.endpoint, token, survey)
     console.log(`${result.registeredAt} ${login.name}님 자가진단을 완료하셨습니다.`)
+    process.exit(0)
 }
 
 example().then()

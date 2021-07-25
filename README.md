@@ -4,7 +4,7 @@
 
 [![image](https://nodei.co/npm/hcs.js.png?downloads=true&stars=true)](https://nodei.co/npm/hcs.js/)
 
-> 1.0.7 업데이트로 비밀번호 입력이 필수가 되었습니다. [example.js](https://github.com/kimcore/hcs.js/blob/master/example.js)를 참고해주세요.
+> 가상 키보드에 대응합니다. 하지만 코드는 최적화가 되어있지 않습니다.
 
 교육부 학생 건강상태 자가진단 라이브러리입니다.
 

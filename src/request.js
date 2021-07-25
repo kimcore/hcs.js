@@ -1,11 +1,14 @@
 const fetch = require('node-fetch')
 
+let cookie = ""
+
 module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.eduro.go.kr', headers = {}) => {
     data = method === 'GET' ? new URLSearchParams(data).toString() : JSON.stringify(data)
     endpoint = 'https://' + endpoint + path + (method === 'GET' ? '?' + data : '')
     const response = await fetch(endpoint, {
         method: method,
         headers: {
+            'Cookie': cookie,
             'Content-Type': 'application/' + (method === 'GET' ? 'x-www-form-urlencoded' : 'json') + ';charset=UTF-8',
             'Accept': 'application/json, text/plain, */*',
             'Accept-Encoding': 'gzip, deflate, br',
@@ -24,6 +27,10 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
         },
         body: method === 'POST' ? data : undefined
     })
+    const setCookie = response.headers.raw()['set-cookie']
+    if (setCookie) {
+        cookie = [cookie, ...setCookie.map(cookie => cookie.split(';')[0])].join(';')
+    }
     let value = await response.text()
     try {
         value = JSON.parse(value)
