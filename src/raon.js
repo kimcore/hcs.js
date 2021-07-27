@@ -1365,12 +1365,17 @@ const genKey = new GenKey()
 const window = {crypto: {getRandomValues}}
 
 module.exports = async (password) => {
-    const certPem = await fetch("https://hcs.eduro.go.kr/transkeyServlet", {
-        method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: "op=getPublicKey&TK_requestToken=0"
-    }).then(r => r.text())
-    const hexArray = _x509_getPublicKeyHexArrayFromCertPEM(certPem)
-    const pKey = {n: hexArray[0], k: 256, e: hexArray[1]}
+    // const certPem = await fetch("https://hcs.eduro.go.kr/transkeyServlet", {
+    //     method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"},
+    //     body: "op=getPublicKey&TK_requestToken=0"
+    // }).then(r => r.text())
+    // const hexArray = _x509_getPublicKeyHexArrayFromCertPEM(certPem)
+    // const pKey = {n: hexArray[0], k: 256, e: hexArray[1]}
+    const pKey = {
+        n: "00e58d6a1c010cf703505cb454520876b0e2a2e0c732652b18824d367c3a7b420ad56e148c84484ff48e1efcfc4534fe1e8773f57e07b5bb0f9880349978db85c2bbbc39ccf2ef899dd8ae56fa6401b4f3a1eace450cda1b0412752e4a7b163d85e35a3d87a8f50588f336bcfde8f10c616998f8475b54e139a5f62b875ebb46a4bd21c0bac7dacce227bfe6b08da53849118c61958dd17b5cedd96b898cfd0b6cabcceaa971c634456530c5cc0a7a99152e34abd2857387cc6cbddf6c393d035da9ac960232ae5f7dcc4f62d776235d46076a871e79d5527e40e74a8199f03bd1b342e415c3c647afb45820fa270e871379b183bde974ed13e1bd8b467f0d1729",
+        k: 256,
+        e: "010001"
+    }
     const initTime = await fetch("https://hcs.eduro.go.kr/transkeyServlet?op=getInitTime").then(r => r.text())
     const decInitTime = initTime.split(";")[0].split("=")[1].replace(/'/g, "")
     const genSessionKey = genKey.GenerateKey(128)
@@ -1394,7 +1399,7 @@ module.exports = async (password) => {
     const keys = dummy.split(",")
     let enc = password.split("").map(n => {
         const [x, y] = keysXY[keys.indexOf(n)]
-        return delimiter + SeedEnc(`${x} ${y}`, sessionKey)
+        return delimiter + SeedEnc(`${x} ${y}`, sessionKey) + delimiter + SeedEnc(decInitTime, sessionKey)
     }).join("")
     const maxSize = 4 + genKey.tk_getrnd_int() % 10;
     for (let j = 4; j < maxSize; j++) {
