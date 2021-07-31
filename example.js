@@ -56,7 +56,11 @@ const example = async () => {
             token = secondLogin.token
             break
         }
-        if (secondLogin.remainingMinutes !== 0) {
+        if (secondLogin.message) {
+            console.log(secondLogin.message)
+            process.exit(0)
+        }
+        if (secondLogin.remainingMinutes) {
             console.log(`5회 이상 실패하여 ${secondLogin.remainingMinutes}분 후에 재시도가 가능합니다.`)
             continue
         }
