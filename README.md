@@ -4,7 +4,7 @@
 
 [![image](https://nodei.co/npm/hcs.js.png?downloads=true&stars=true)](https://nodei.co/npm/hcs.js/)
 
-> 가상 키보드에 대응합니다. 하지만 코드는 최적화가 되어있지 않습니다.
+> 가상 키보드에 대응합니다! v1.1.3 부터는 최적화된 코드를 제공합니다.
 
 교육부 학생 건강상태 자가진단 라이브러리입니다.
 
