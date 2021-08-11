@@ -11,14 +11,11 @@ module.exports = function SeedEnc(geo, sessionKey, initTime) {
     let i
 
     for (i = 0; i < geo.length; i++) {
-        if (geo.charAt(i) === "l" || geo.charAt(i) === "u" || geo.charAt(i) === "#") {
+        if (["l", "u", "#"].includes(geo.charAt(i))) {
             inData[i] = Number(geo.charCodeAt(i))
-            continue
-        } else if (geo.charAt(i) === " ") {
-            inData[i] = Number(geo.charCodeAt(i))
-            continue
+        } else {
+            inData[i] = Number(geo.charAt(i).toString(16))
         }
-        inData[i] = Number(geo.charAt(i).toString(16))
     }
 
     inData[i++] = 32

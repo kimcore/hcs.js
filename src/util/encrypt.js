@@ -3,10 +3,9 @@ const SecureRandom = jsbn.SecureRandom.prototype
 const BigInteger = jsbn.BigInteger
 
 Number.prototype.toHexStr = function () {
-    let s = "", v
+    let s = ""
     for (let i = 7; i >= 0; i--) {
-        v = (this >>> (i * 4)) & 0xf
-        s += v.toString(16)
+        s += ((this >>> (i * 4)) & 0xf).toString(16)
     }
     return s
 }
