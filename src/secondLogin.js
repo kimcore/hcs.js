@@ -13,10 +13,10 @@ module.exports = async (endpoint, token, password) => {
     return success ? {
         success, token: response
     } : (
-        "remainingMinutes" in response ? {
+        response['isError'] ? {
             success,
-            failCount: response['data']['remainMinutes'] ? 5 : response['data']['failCnt'],
-            remainingMinutes: Number(response['data']['remainMinutes'] ? response['data']['remainMinutes'] : 0),
+            failCount: response['data']['failCnt'] ?? 5,
+            remainingMinutes: response['data']['remainMinutes'] ? Number(response['data']['remainMinutes']) : 0
         } : {
             success, message: "가상 키보드의 암호화 구조가 변경되어 현재 사용할 수 없습니다. 라이브러리 업데이트를 기다려주세요."
         }
