@@ -11,7 +11,7 @@ module.exports = function SeedEnc(geo, sessionKey, initTime) {
     let i
 
     for (i = 0; i < geo.length; i++) {
-        if (["l", "u", "#"].includes(geo.charAt(i))) {
+        if (["l", "u", "#", " "].includes(geo.charAt(i))) {
             inData[i] = Number(geo.charCodeAt(i))
         } else {
             inData[i] = Number(geo.charAt(i).toString(16))

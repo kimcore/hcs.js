@@ -13,7 +13,7 @@ module.exports = async (endpoint, token, password) => {
     return success ? {
         success, token: response
     } : (
-        response['isError'] ? {
+        response['isError'] && response['message'] !== "비밀번호를 다시한번더 입력해주세요" ? {
             success,
             failCount: response['data']['failCnt'] ?? 5,
             remainingMinutes: response['data']['remainMinutes'] ? Number(response['data']['remainMinutes']) : 0
