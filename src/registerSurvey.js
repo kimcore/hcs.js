@@ -25,7 +25,8 @@ module.exports = async (endpoint, token, survey = {
         rspns13: null,
         rspns14: null,
         rspns15: null,
-        upperToken: user[0].token
+        upperToken: user[0].token,
+        upperUserNameEncpt: user[0].name
     }
     const response = await request('/registerServey', 'POST', data, endpoint, {'Authorization': user[0].token})
     return {
