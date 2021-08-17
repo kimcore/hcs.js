@@ -13,7 +13,7 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
             'Accept-Language': 'en-GB,en;q=0.9,ko-KR;q=0.8,ko;q=0.7,ja-JP;q=0.6,ja;q=0.5,zh-TW;q=0.4,zh;q=0.3,en-US;q=0.2',
             'Cache-Control': 'no-cache',
             'Connection': 'keep-alive',
-            'Origin': 'https://hcs.eduro.go.kr',
+            // 'Origin': 'https://hcs.eduro.go.kr',
             'Pragma': 'no-cache',
             'Referer': 'https://hcs.eduro.go.kr/',
             'Sec-Fetch-Dest': 'empty',
