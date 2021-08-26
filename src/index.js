@@ -6,9 +6,11 @@ const registerPassword = require('./registerPassword')
 const secondLogin = require('./secondLogin')
 const userInfo = require('./userInfo')
 const registerSurvey = require('./registerSurvey')
+const {setAgent} = require('./request')
 
 module.exports = {
     searchSchool, login, updateAgreement,
     passwordExists, registerPassword,
-    secondLogin, userInfo, registerSurvey
+    secondLogin, userInfo, registerSurvey,
+    setAgent
 }

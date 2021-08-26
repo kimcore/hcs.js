@@ -1,11 +1,14 @@
 const nodeFetch = require('node-fetch')
 const fetch = require("fetch-cookie")(nodeFetch)
 
+let agent = null
+
 module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.eduro.go.kr', headers = {}) => {
     data = method === 'GET' ? new URLSearchParams(data).toString() : JSON.stringify(data)
     endpoint = 'https://' + endpoint + path + (method === 'GET' ? '?' + data : '')
     const response = await fetch(endpoint, {
         method: method,
+        agent,
         headers: {
             'Content-Type': 'application/' + (method === 'GET' ? 'x-www-form-urlencoded' : 'json') + ';charset=UTF-8',
             'Accept': 'application/json, text/plain, */*',
@@ -31,4 +34,8 @@ module.exports = async (path = '/', method = 'GET', data = {}, endpoint = 'hcs.e
     } catch (ignored) {
     }
     return value
+}
+
+module.exports.setAgent = httpAgent => {
+    agent = httpAgent
 }
