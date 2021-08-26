@@ -12,7 +12,7 @@
 
 ### 프록시 사용법
 `https-proxy-agent` 라이브러리를 통해 프록시를 사용하실 수 있습니다.
-상세한 사용법은 [https-proxy-agent])(https://github.com/TooTallNate/node-https-proxy-agent) 레포에서 확인해주세요.
+상세한 사용법은 [https-proxy-agent](https://github.com/TooTallNate/node-https-proxy-agent) 레포에서 확인해주세요.
 ```js
 const HttpsProxyAgent = require('https-proxy-agent');
 
