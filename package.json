@@ -5,6 +5,7 @@
     "hcs",
     "korea"
   ],
+  "types": "index.d.ts",
   "author": {
     "name": "kimcore",
     "email": "kimcoreovo@gmail.com",
@@ -29,5 +30,8 @@
     "jsbn": "^1.1.0",
     "jsencrypt": "3.0.0-rc.1",
     "node-fetch": "^2.6.1"
+  },
+  "devDependencies": {
+    "@types/node": "^16.7.10"
   }
 }
