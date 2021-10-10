@@ -1,11 +1,17 @@
-const jsbn = require("jsbn")
+import jsbn from "jsbn"
+
 const SecureRandom = jsbn.SecureRandom.prototype
 const BigInteger = jsbn.BigInteger
+const publicKey = {
+    n: "00e58d6a1c010cf703505cb454520876b0e2a2e0c732652b18824d367c3a7b420ad56e148c84484ff48e1efcfc4534fe1e8773f57e07b5bb0f9880349978db85c2bbbc39ccf2ef899dd8ae56fa6401b4f3a1eace450cda1b0412752e4a7b163d85e35a3d87a8f50588f336bcfde8f10c616998f8475b54e139a5f62b875ebb46a4bd21c0bac7dacce227bfe6b08da53849118c61958dd17b5cedd96b898cfd0b6cabcceaa971c634456530c5cc0a7a99152e34abd2857387cc6cbddf6c393d035da9ac960232ae5f7dcc4f62d776235d46076a871e79d5527e40e74a8199f03bd1b342e415c3c647afb45820fa270e871379b183bde974ed13e1bd8b467f0d1729",
+    k: 256,
+    e: "010001"
+}
 
-Number.prototype.toHexStr = function () {
+function toHexString(number) {
     let s = ""
     for (let i = 7; i >= 0; i--) {
-        s += ((this >>> (i * 4)) & 0xf).toString(16)
+        s += ((number >>> (i * 4)) & 0xf).toString(16)
     }
     return s
 }
@@ -84,7 +90,7 @@ function sha1Hash(msg) {
         H3 = (H3 + d) & 0xffffffff
         H4 = (H4 + e) & 0xffffffff
     }
-    return H0.toHexStr() + H1.toHexStr() + H2.toHexStr() + H3.toHexStr() + H4.toHexStr()
+    return toHexString(H0) + toHexString(H1) + toHexString(H2) + toHexString(H3) + toHexString(H4)
 }
 
 function f(s, x, y, z) {
@@ -116,7 +122,7 @@ function mgf1(mgfSeed, maskLen) {
     return t.substring(0, maskLen)
 }
 
-module.exports = (plaintext, publicKey) => {
+function encryptWithPublicKey(plaintext: string) {
     const {k, e, n} = publicKey
     const temp = new Array(32)
     SecureRandom.nextBytes(temp)
@@ -130,7 +136,7 @@ module.exports = (plaintext, publicKey) => {
         const hLen = 20
         const mLen = plaintext.length
         if (mLen > k - 2 * hLen - 2) {
-            throw Error("too long")
+            throw Error("Couldn't encrypt text - too long")
         }
 
         const lHash = pack(sha1Hash(""))
@@ -144,9 +150,9 @@ module.exports = (plaintext, publicKey) => {
         const db = lHash + ps + "\x01" + plaintext
         let seed = ""
         for (let i = 0; i < hLen + 4; i += 4) {
-            temp = new Array(4)
-            SecureRandom.nextBytes(temp)
-            seed += String.fromCharCode(temp[0], temp[1], temp[2], temp[3])
+            const bytes = new Array(4)
+            SecureRandom.nextBytes(bytes)
+            seed += String.fromCharCode(bytes[0], bytes[1], bytes[2], bytes[3])
         }
         seed = seed.substring(4 - seed.length % 4)
         const dbMask = mgf1(seed, k - hLen - 1)
@@ -155,12 +161,9 @@ module.exports = (plaintext, publicKey) => {
         const maskedSeed = xor(seed, seedMask)
         const em = "\x00" + maskedSeed + maskedDB
 
-        plaintext = []
-        for (let i = 0; i < em.length; i++) {
-            plaintext[i] = em.charCodeAt(i)
-        }
-        plaintext = new BigInteger(plaintext, 256)
-        let c = plaintext.modPow(eb, nb).toString(16)
+        const bi = new BigInteger(em.split("").map(char => char.charCodeAt(0)), 256)
+        let c = bi.modPow(eb, nb).toString(16)
+        // noinspection JSBitwiseOperatorUsage
         if (c.length & 1) {
             c = "0" + c
         }
@@ -170,3 +173,5 @@ module.exports = (plaintext, publicKey) => {
 
     return encrypted
 }
+
+export default encryptWithPublicKey

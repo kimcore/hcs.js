@@ -1,13 +1,14 @@
-import hcs from '.'
-import type { SecondLoginResultFailure } from '.'
+// import hcs from "hcs.js"
+import hcs from "."
+
+// @ts-ignore
 import Readline from 'readline'
 
 const readline = Readline.createInterface({
     input: process.stdin,
     output: process.stdout
 })
-const it = readline[Symbol.asyncIterator]();
-// const hcs = require('hcs.js')
+const it = readline[Symbol.asyncIterator]()
 
 const example = async () => {
     console.log('학교 이름을 입력해주세요.')
@@ -56,8 +57,8 @@ const example = async () => {
         console.log('비밀번호 4자리를 입력해주세요.')
         const password = (await it.next()).value
         const secondLogin = await hcs.secondLogin(school.endpoint, login.token, password)
-        if (!secondLogin.success) {
-            const fail = secondLogin as SecondLoginResultFailure
+        if (secondLogin.success == false) {
+            const fail = secondLogin
 
             if (fail.message) {
                 console.log(fail.message)
@@ -67,6 +68,7 @@ const example = async () => {
                 console.log(`5회 이상 실패하여 ${fail.remainingMinutes}분 후에 재시도가 가능합니다.`)
                 continue
             }
+
             console.log('잘못된 비밀번호입니다. 5회 이상 실패시 5분 후에 재시도가 가능합니다.')
             console.log(`현재 ${fail.failCount}번 실패하셨습니다.`)
         } else {
