@@ -10,8 +10,8 @@
     "email": "kimcoreovo@gmail.com",
     "url": "https://github.com/kimcore"
   },
-  "main": "dist/src/index.js",
-  "typings": "dist/src/index.d.ts",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "lint": "eslint"
