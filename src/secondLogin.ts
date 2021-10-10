@@ -36,7 +36,7 @@ export interface SecondLoginResultFailure {
     message: string
 }
 
-export async function secondLogin(endpoint, token, password): Promise<SecondLoginResult> {
+export async function secondLogin(endpoint: string, token: string, password: string): Promise<SecondLoginResult> {
     const data = {
         deviceUuid: "",
         makeSession: true,

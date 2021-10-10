@@ -12,7 +12,7 @@ export interface UpdateAgreementResult {
  * @param endpoint 관할 시/도 엔드포인트
  * @param token 로그인 세션 토큰
  */
-export async function updateAgreement(endpoint, token): Promise<UpdateAgreementResult> {
+export async function updateAgreement(endpoint: string, token: string): Promise<UpdateAgreementResult> {
     await request('/v2/updatePInfAgrmYn', 'POST', {}, endpoint, token)
     return {success: true}
 }

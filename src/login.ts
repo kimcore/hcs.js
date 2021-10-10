@@ -50,7 +50,7 @@ export interface LoginResultFailure {
     message: string
 }
 
-export async function login(endpoint, schoolCode, name, birthday): Promise<LoginResult> {
+export async function login(endpoint: string, schoolCode: string, name: string, birthday: string): Promise<LoginResult> {
     const data = {
         birthday: encrypt(birthday),
         loginType: 'school',
