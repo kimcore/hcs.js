@@ -1,5 +1,5 @@
 // import hcs from "hcs.js"
-import hcs from "."
+import * as hcs from "./src"
 
 // @ts-ignore
 import Readline from 'readline'
