@@ -43,8 +43,8 @@ export async function secondLogin(endpoint: string, token: string, password: str
         password: await buildRaon(password)
     }
     const response = await request('/v2/validatePassword', 'POST', data, endpoint, token)
-    const success = typeof response.token == "string"
-    if (success) {
+
+    if (response.token) {
         return {
             success: true, token: response.token
         }
