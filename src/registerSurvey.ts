@@ -14,12 +14,14 @@ export enum CovidQuickTestResult {
 export interface SurveyData {
     /**
      * 1. 학생 본인이 코로나19 감염에 의심되는 아래의 임상증상*이 있나요?
-     * (주요 임상증상) 발열(37.5℃), 기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각·미각소실
+     * * 주요 임상증상 : 발열(37.5℃), 기침, 호흡곤란, 오한, 근육통, 두통, 인후통, 후각·미각소실
+     * ※ 단 학교에서 선별진료소 검사결과(음성)를 확인 후 등교를 허용한 경우, 또는 선천성질환·만성질환(천식 등)으로 인한 증상인 경우 ‘아니오’를 선택하세요
      */
     Q1: boolean
 
     /**
-     * 2. 학생은 오늘 신속항원검사(자가진단)를 실시했나요?
+     * 2. 학생은 오늘(어제 저녁 포함) 신속항원검사(자가진단)를 실시했나요?
+     * 코로나19 완치자의 경우, 확진일로부터 45일간 신속항원검사(자가진단)는 실시하지 않음(“검사하지 않음”으로 선택)
      */
     Q2: CovidQuickTestResult
 
@@ -27,16 +29,6 @@ export interface SurveyData {
      * 3.학생 본인 또는 동거인이 PCR 검사를 받고 그 결과를 기다리고 있나요?
      */
     Q3: boolean
-
-    /**
-     * 4. 학생 본인이 보건소로부터 밀접접촉자로 통보받아 현재 자가격리 중인가요?
-     */
-    Q4: boolean
-
-    /**
-     * 5. 학생의 동거인 중 재택치료자가 있어 공동격리인으로 지정되어 현재 자가격리 중인가요?
-     */
-    Q5: boolean
 }
 
 /** 설문 결과 */
@@ -55,14 +47,12 @@ export interface SurveyResult {
 export async function registerSurvey(endpoint: string, token: string, survey: SurveyData = {
     Q1: false,
     Q2: CovidQuickTestResult.NONE,
-    Q3: false,
-    Q4: false,
-    Q5: false
+    Q3: false
 }): Promise<SurveyResult> {
     const user = await userInfo(endpoint, token)
     const data = {
         deviceUuid: '',
-        rspns00: (!survey.Q1 && survey.Q2 !== CovidQuickTestResult.NONE && !survey.Q3 && !survey.Q4 && !survey.Q5) ? 'Y' : 'N',
+        rspns00: (!survey.Q1 && survey.Q2 !== CovidQuickTestResult.NONE && !survey.Q3) ? 'Y' : 'N',
         rspns01: survey.Q1 ? '2' : '1',
         rspns02: survey.Q3 ? '0' : '1',
         rspns03: survey.Q2 == CovidQuickTestResult.NONE ? '1' : null,
@@ -70,8 +60,8 @@ export async function registerSurvey(endpoint: string, token: string, survey: Su
         rspns05: null,
         rspns06: null,
         rspns07: survey.Q2 != CovidQuickTestResult.NONE ? (survey.Q2 == CovidQuickTestResult.NEGATIVE ? '0' : '1') : null,
-        rspns08: survey.Q5 ? '1' : '0',
-        rspns09: survey.Q4 ? '1' : '0',
+        rspns08: null,
+        rspns09: null,
         rspns10: null,
         rspns11: null,
         rspns12: null,
