@@ -86,24 +86,14 @@ const example = async () => {
         Q1: false,
 
         /**
-         * 2. 학생은 오늘 신속항원검사(자가진단)를 실시했나요?
+         * 2. 학생은 오늘(어제 저녁 포함) 신속항원검사(자가진단)를 실시했나요?
          */
         Q2: CovidQuickTestResult.NONE,
 
         /**
          * 3.학생 본인 또는 동거인이 PCR 검사를 받고 그 결과를 기다리고 있나요?
          */
-        Q3: false,
-
-        /**
-         * 4. 학생 본인이 보건소로부터 밀접접촉자로 통보받아 현재 자가격리 중인가요?
-         */
-        Q4: false,
-
-        /**
-         * 5. 학생의 동거인 중 재택치료자가 있어 공동격리인으로 지정되어 현재 자가격리 중인가요?
-         */
-        Q5: false
+        Q3: false
     }
     const result = await hcs.registerSurvey(school.endpoint, token, survey)
     console.log(`${result.registeredAt} ${login.name}님 자가진단을 완료하셨습니다.`)
