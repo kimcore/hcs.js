@@ -30,6 +30,7 @@ import hcs from "hcs.js";
   - [비밀번호 존재 확인](#비밀번호-존재-확인)
   - [로그인(2차)](#로그인2차)
   - [설문 제출](#설문-제출)
+  - [학생 정보 불러오기](#학생-정보-불러오기)
   - [사용 예시](#사용-예시)
 
 ## 학교 검색
@@ -170,7 +171,7 @@ hcs.secondLogin(school.endpoint, login.token, '<비밀번호(4자리)>').then(se
 ```js
 {
   "success": true, // 성공 여부
-  "token": "Bearer ..." // 토큰
+  "token": "Bearer ..." // 로그인 토큰
 }
 ```
 
@@ -220,11 +221,57 @@ hcs.registerSurvey(school.endpoint, secondToken, survey).then(result => {
 
 `result`
 
-- 성공/실패 여부는 알 수 없습니다.
+- 성공/실패 여부는 아래 `hcs.userInfo()`로 알 수 있습니다.
 ```js
 {
-  "registeredAt": "2022-03-06 15:35:38" // 제출 시간
+  "registeredAt": "2022-03-06 15:35:38" // 자가진단 실시 시간
 }
+```
+
+## 학생 정보 불러오기
+학생의 정보를 불러옵니다.
+
+async/await
+```js
+const userInfo = await hcs.userInfo(school.endpoint, secondToken);
+```
+.then()
+```js
+hcs.userInfo(school.endpoint, secondToken).then(userInfo => {
+  // userInfo
+})
+```
+
+`userInfo`
+
+오늘 자가진단을 실시했을 경우
+```js
+[{
+  "registerRequired": false, // false = 자가진단 완료, true = 자가진단 미실시
+  "registeredAt": "2022-03-06 15:35:38.963405", // 자가진단 실시 시간
+  "registeredAtYMD": "20220306",
+  "schoolName": "서울과학고등학교",
+  "schoolCode": "B100000569",
+  "isHealthy": true, // true = 정상, false = 등교 중지, undefined = 자가진단 미실시
+  "name": "홍길동",
+  "UID": "2022000001",
+  "token": "Bearer ..."
+}]
+```
+
+오늘 자가진단을 실시하지 않은 경우
+```js
+[{
+  "registerRequired": true, // false = 자가진단 완료, true = 자가진단 미실시
+  "registeredAt": undefined, // 자가진단 실시 시간
+  "registeredAtYMD": undefined,
+  "schoolName": "서울과학고등학교",
+  "schoolCode": "B100000569",
+  "isHealthy": undefined, // true = 정상, false = 등교 중지, undefined = 자가진단 미실시
+  "name": "홍길동",
+  "UID": "2022000001",
+  "token": "Bearer ..."
+}]
 ```
 
 ## 사용 예시
