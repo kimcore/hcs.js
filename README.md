@@ -155,12 +155,12 @@ let secondToken;
 
 async/await
 ```js
-const secondLogin = await hcs.secondLogin(school.endpoint, login.token, '<비밀번호(4자리)>');
+const secondLogin = await hcs.secondLogin(school.endpoint, firstLogin.token, '<비밀번호(4자리)>');
 secondToken = secondLogin.token;
 ```
 .then()
 ```js
-hcs.secondLogin(school.endpoint, login.token, '<비밀번호(4자리)>').then(secondLogin => {
+hcs.secondLogin(school.endpoint, firstLogin.token, '<비밀번호(4자리)>').then(secondLogin => {
   secondToken = secondLogin.token;
 });
 ```
