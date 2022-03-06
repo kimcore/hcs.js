@@ -5,7 +5,7 @@
 [![npm downloads](https://img.shields.io/npm/dm/hcs.js.svg?style=round-square)](http://npm-stat.com/charts.html?package=hcs.js)
 [![image](https://img.shields.io/github/license/kimcore/hcs.js)](https://github.com/kimcore/hcs.js/blob/master/LICENSE)
 
-교육부 학생 건강상태 자가진단 자동화 라이브러리
+교육부 학생 건강상태 자가진단 라이브러리
 
 # 설치
 
@@ -13,8 +13,14 @@
 npm install hcs.js
 ```
 
+CommonJS
 ```js
 const hcs = require('hcs.js');
+```
+
+ES
+```js
+import hcs from "hcs.js";
 ```
 
 # 사용
@@ -214,7 +220,7 @@ hcs.registerSurvey(school.endpoint, secondToken, survey).then(result => {
 
 `result`
 
-! 성공/실패 여부는 알 수 없습니다 !
+- 성공/실패 여부는 알 수 없습니다.
 ```js
 {
   "registeredAt": "2022-03-06 15:35:38" // 제출 시간
