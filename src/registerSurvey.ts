@@ -51,7 +51,7 @@ export async function registerSurvey(endpoint: string, token: string, survey: Su
 }): Promise<SurveyResult> {
     const user = await userInfo(endpoint, token)
     const data = {
-        clientVersion: '1.8.8',
+        clientVersion: '1.8.9',
         deviceUuid: '',
         rspns00: (!survey.Q1 && survey.Q2 !== CovidQuickTestResult.NONE && !survey.Q3) ? 'Y' : 'N',
         rspns01: survey.Q1 ? '2' : '1',
