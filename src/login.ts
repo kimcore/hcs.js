@@ -1,5 +1,5 @@
 import request from "./request"
-import encrypt from "./encrypt"
+import {encrypt} from "./util"
 
 /**
  * 로그인 결과

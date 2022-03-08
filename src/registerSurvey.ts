@@ -1,5 +1,6 @@
 import request from "./request"
 import {userInfo} from "./userInfo"
+import {retrieveClientVersion} from "./util";
 
 export enum CovidQuickTestResult {
     /** 검사하지 않음 */
@@ -33,8 +34,12 @@ export interface SurveyData {
 
 /** 설문 결과 */
 export interface SurveyResult {
+    /** 성공 여부 */
+    success: boolean
+    /** 에러 메시지 */
+    message?: string
     /** 설문 시각 */
-    registeredAt: string
+    registeredAt?: string
 }
 
 /**
@@ -50,8 +55,9 @@ export async function registerSurvey(endpoint: string, token: string, survey: Su
     Q3: false
 }): Promise<SurveyResult> {
     const user = await userInfo(endpoint, token)
+    const clientVersion = await retrieveClientVersion()
     const data = {
-        clientVersion: '1.8.8',
+        clientVersion,
         deviceUuid: '',
         rspns00: (!survey.Q1 && survey.Q2 !== CovidQuickTestResult.NONE && !survey.Q3) ? 'Y' : 'N',
         rspns01: survey.Q1 ? '2' : '1',
@@ -73,7 +79,14 @@ export async function registerSurvey(endpoint: string, token: string, survey: Su
         upperUserNameEncpt: user[0].name
     }
     const response = await request('/registerServey', 'POST', data, endpoint, user[0].token)
+    if (response.isError) {
+        return {
+            success: false,
+            message: response.message
+        }
+    }
     return {
+        success: true,
         registeredAt: response['registerDtm']
     }
 }

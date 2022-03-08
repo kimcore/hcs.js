@@ -1,5 +1,5 @@
 import request from "./request"
-import encrypt from "./encrypt"
+import {encrypt} from "./util"
 
 /** 비밀번호 설정 결과 */
 export interface RegisterPasswordResult {

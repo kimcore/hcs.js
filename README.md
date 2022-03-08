@@ -189,6 +189,8 @@ hcs.secondLogin(school.endpoint, firstLogin.token, '<비밀번호(4자리)>').th
 자가진단 설문을 제출합니다.
 
 ```js
+import {CovidQuickTestResult} from "hcs.js"
+
 const survey = {
         /**
          * 1. 학생 본인이 코로나19 감염에 의심되는 아래의 임상증상*이 있나요?
@@ -199,7 +201,7 @@ const survey = {
         /**
          * 2. 학생은 오늘(어제 저녁 포함) 신속항원검사(자가진단)를 실시했나요?
          */
-        Q2: 0, // 0 = 검사하지 않음, 1 = 음성, 2 = 양성
+        Q2: CovidQuickTestResult.NONE, // 0 (NONE) = 검사하지 않음, 1 (NEGATIVE) = 음성, 2 (POSITIVE) = 양성
 
         /**
          * 3.학생 본인 또는 동거인이 PCR 검사를 받고 그 결과를 기다리고 있나요?
@@ -221,10 +223,19 @@ hcs.registerSurvey(school.endpoint, secondToken, survey).then(result => {
 
 `result`
 
-- 성공/실패 여부는 아래 `hcs.userInfo()`로 알 수 있습니다.
+성공
 ```js
 {
+  "success": true, // 성공 여부
   "registeredAt": "2022-03-06 15:35:38" // 자가진단 실시 시간
+}
+```
+
+실패
+```js
+{
+  "success": false, // 성공 여부
+  "message": "오류 메시지"
 }
 ```
 
