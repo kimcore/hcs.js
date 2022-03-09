@@ -1,8 +1,8 @@
-import request from "./request"
+import fetchHcs from "./util/fetchHcs"
 
 /** 학생 정보 */
 export interface UserInfo {
-    /** 비밀번호 등록 필요 */
+    /** 비밀번호 설정 필요 여부 */
     registerRequired: boolean
     /** 등록일자 */
     registeredAt: string
@@ -18,25 +18,25 @@ export interface UserInfo {
     name: string
     /** 학생식별코드 */
     UID: string
-    /** 로그인 세션 토큰 */
+    /** 1차 로그인 토큰 */
     token: string
 }
 
 /**
- * 학생 정보를 가져옵니다.
- *
+ * 학생 정보를 확인합니다.
  * @param endpoint 관할 시/도 엔드포인트
- * @param token 로그인 세션 토큰
+ * @param token 1차 로그인 토큰
+ * @returns {Promise<UserInfo>}
  */
 export async function userInfo(endpoint: string, token: string): Promise<UserInfo[]> {
-    const response = await request('/v2/selectUserGroup', 'POST', {}, endpoint, token)
+    const response = await fetchHcs('/v2/selectUserGroup', 'POST', {}, endpoint, token)
     const list = []
     for (const user of (response as Array<any>)) {
         const data = {
             orgCode: user['orgCode'],
             userPNo: user['userPNo']
         }
-        const userinfo = await request('/v2/getUserInfo', 'POST', data, endpoint, user['token'])
+        const userinfo = await fetchHcs('/v2/getUserInfo', 'POST', data, endpoint, user['token'])
         list.push({
             registerRequired: userinfo['registerDtm'] === undefined,
             registeredAt: userinfo['registerDtm'],

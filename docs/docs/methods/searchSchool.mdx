@@ -1,0 +1,33 @@
+---
+sidebar_position: 1
+---
+
+# 학교 검색
+
+학교를 검색합니다.
+
+### 사용법
+
+```ts
+const schools = await hcs.searchSchool("서울과학고")
+```
+
+### 결과 예시
+
+[School](/docs/api/School)의 배열이 반환됩니다.
+
+```ts
+[{
+  name: "서울과학고등학교",
+  nameEn: "Seoul Science High School",
+  city: "서울특별시",
+  address: "(03066)서울특별시 종로구 혜화로 63 (명륜1가)",
+  endpoint: "senhcs.eduro.go.kr",
+  schoolCode: "B100000569"
+},
+{
+  // ...
+},
+// 최대 30개
+]
+```

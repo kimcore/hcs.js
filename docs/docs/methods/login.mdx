@@ -1,0 +1,40 @@
+---
+sidebar_position: 2
+---
+
+# 1차 로그인
+
+1차 로그인을 진행합니다.
+
+### 사용법
+
+```ts
+const name = "엄준식" // 학생 이름
+const birthday = "040309" // 생년월일 6자리
+
+const login = await hcs.login(school.endpoint, school.schoolCode, name, birth)
+```
+
+### 결과 예시
+
+[LoginResult](/docs/api/LoginResult)가 반환됩니다.
+
+#### 성공
+```ts
+{
+  success: true,
+  agreementRequired: false,
+  schoolName: "서울과학고등학교",
+  name: "엄준식",
+  birthday: "040309",
+  token: "Bearer ..." // 1차 로그인 토큰
+}
+```
+
+#### 실패
+```ts
+{
+  success: false, // 성공 여부
+  message: "오류 메시지"
+}
+```

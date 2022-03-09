@@ -1,4 +1,4 @@
-import request from "./request"
+import fetchHcs from "./util/fetchHcs"
 
 /** 학교 정보 */
 export interface School {
@@ -16,8 +16,13 @@ export interface School {
     schoolCode: string
 }
 
+/**
+ * 학교를 검색합니다.
+ * @param schoolName 학교명
+ * @returns {Promise<School[]>}
+ */
 export async function searchSchool(schoolName: string): Promise<School[]> {
-    const response = await request("/v2/searchSchool", "GET", {orgName: schoolName})
+    const response = await fetchHcs("/v2/searchSchool", "GET", {orgName: schoolName})
     const schoolList = Object(response["schulList"])
     return schoolList.map(school => {
         return {

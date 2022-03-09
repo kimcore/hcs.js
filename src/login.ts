@@ -1,5 +1,5 @@
-import request from "./request"
-import {encrypt} from "./util"
+import fetchHcs from "./util/fetchHcs"
+import encrypt from "./util/encrypt"
 
 /**
  * 로그인 결과
@@ -28,7 +28,7 @@ export interface LoginResultSuccess {
     name: string
     /** 생년월일 */
     birthday: string
-    /** 로그인 세션 토큰 */
+    /** 1차 로그인 토큰 */
     token: string
 }
 
@@ -50,6 +50,14 @@ export interface LoginResultFailure {
     message: string
 }
 
+/**
+ * 1차 로그인을 진행합니다.
+ * @param endpoint 관할 시/도 엔드포인트
+ * @param schoolCode 학교식별번호
+ * @param name 학생명
+ * @param birthday 생년월일
+ * @returns {Promise<LoginResult>}
+ */
 export async function login(endpoint: string, schoolCode: string, name: string, birthday: string): Promise<LoginResult> {
     const data = {
         birthday: encrypt(birthday),
@@ -58,7 +66,7 @@ export async function login(endpoint: string, schoolCode: string, name: string, 
         orgCode: schoolCode,
         stdntPNo: null
     }
-    const response = await request('/v2/findUser', 'POST', data, endpoint)
+    const response = await fetchHcs('/v2/findUser', 'POST', data, endpoint)
     return response['isError'] ? {
         success: false,
         message: response['message']

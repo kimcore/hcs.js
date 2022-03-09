@@ -1,0 +1,27 @@
+---
+sidebar_position: 6
+---
+
+성공 시 `SecondLoginResultSuccess`, 실패 시 `SecondLoginResultFailure`가 반환됩니다.
+
+## SecondLoginResultSuccess
+```ts
+{
+    success: true
+    /** 2차 로그인 토큰 */
+    token: string
+}
+```
+
+## SecondLoginResultFailure
+```ts
+{
+    success: false
+    /** 로그인 실패 횟수 */
+    failCount?: number
+    /** 남은 시간 */
+    remainingMinutes?: number
+    /** 오류 메시지 */
+    message: string
+}
+```

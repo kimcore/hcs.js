@@ -1,5 +1,5 @@
-import request from "./request"
-import buildRaon from "./raon/buildRaon"
+import fetchHcs from "./util/fetchHcs"
+import buildRaon from "./util/buildRaon"
 
 export type SecondLoginResult = SecondLoginResultSuccess | SecondLoginResultFailure
 
@@ -14,7 +14,7 @@ export interface SecondLoginResultSuccess {
      *    }
      * */
     success: true
-    /** 설문 토큰 */
+    /** 2차 로그인 토큰 */
     token: string
 }
 
@@ -36,13 +36,20 @@ export interface SecondLoginResultFailure {
     message: string
 }
 
+/**
+ * 2차 로그인을 진행합니다.
+ * @param endpoint 관할 시/도 엔드포인트
+ * @param token 1차 로그인 토큰
+ * @param password 비밀번호
+ * @returns {Promise<SecondLoginResult>}
+ */
 export async function secondLogin(endpoint: string, token: string, password: string): Promise<SecondLoginResult> {
     const data = {
         deviceUuid: "",
         makeSession: true,
         password: await buildRaon(password)
     }
-    const response = await request('/v2/validatePassword', 'POST', data, endpoint, token)
+    const response = await fetchHcs('/v2/validatePassword', 'POST', data, endpoint, token)
 
     if (response.token) {
         return {

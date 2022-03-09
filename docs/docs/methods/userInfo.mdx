@@ -1,0 +1,31 @@
+---
+sidebar_position: 3
+---
+
+# 학생 정보 확인
+
+학생 정보를 확인합니다.
+
+### 사용법
+
+```ts
+const userInfo = await hcs.userInfo(school.endpoint, login.token)
+```
+
+### 결과 예시
+
+[UserInfo](/docs/api/UserInfo)의 배열이 반환됩니다.
+
+```ts
+[{
+  registerRequired: false, // false = 자가진단 완료, true = 자가진단 미실시
+  registeredAt: "2022-03-06 15:35:38.963405", // 자가진단 실시 시간, 미실시 시 undefined
+  registeredAtYMD: "20220306",
+  schoolName: "서울과학고등학교",
+  schoolCode: "B100000569",
+  isHealthy: true, // true = 정상, false = 등교 중지, undefined = 자가진단 미실시
+  name: "엄준식",
+  UID: "2022000001",
+  token: "Bearer ..."
+}]
+```

@@ -246,7 +246,7 @@ class Seed {
     }
 }
 
-function seedEncrypt(geo: string, sessionKey: number[], initTime: string) {
+export default function seedEncrypt(geo: string, sessionKey: number[], initTime: string) {
     const iv = [0x4d, 0x6f, 0x62, 0x69, 0x6c, 0x65, 0x54, 0x72, 0x61, 0x6e, 0x73, 0x4b, 0x65, 0x79, 0x31, 0x30]
     const tSize = 48
     const inData = new Array(tSize)
@@ -283,5 +283,3 @@ function seedEncrypt(geo: string, sessionKey: number[], initTime: string) {
 
     return encodedDataString.substring(0, encodedDataString.length - 1)
 }
-
-export default seedEncrypt

@@ -1,0 +1,31 @@
+---
+sidebar_position: 2
+---
+
+성공 시 `LoginResultSuccess`, 실패 시 `LoginResultFailure`가 반환됩니다.
+
+## LoginResultSuccess
+```ts
+{
+    success: true
+    /** 동의 필요 여부 */
+    agreementRequired: boolean
+    /** 학교명 */
+    schoolName: string
+    /** 학생명 */
+    name: string
+    /** 생년월일 */
+    birthday: string
+    /** 로그인 세션 토큰 */
+    token: string
+}
+```
+
+## LoginResultFailure
+```ts
+{
+    success: false
+    /** 오류 메시지 */
+    message: string
+}
+```

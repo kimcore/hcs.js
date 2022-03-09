@@ -122,7 +122,7 @@ function mgf1(mgfSeed, maskLen) {
     return t.substring(0, maskLen)
 }
 
-function encryptWithPublicKey(plaintext: string) {
+export default function encryptWithPublicKey(plaintext: string) {
     const {k, e, n} = publicKey
     const temp = new Array(32)
     SecureRandom.nextBytes(temp)
@@ -173,5 +173,3 @@ function encryptWithPublicKey(plaintext: string) {
 
     return encrypted
 }
-
-export default encryptWithPublicKey

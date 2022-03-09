@@ -1,13 +1,13 @@
-import request from "./request"
+import fetchHcs from "./util/fetchHcs"
 import {userInfo} from "./userInfo"
-import {retrieveClientVersion} from "./util";
+import retrieveClientVersion from "./util/retrieveClientVersion"
 
 export enum CovidQuickTestResult {
-    /** 검사하지 않음 */
+    /** 검사하지 않음 (0) */
     NONE,
-    /** 음성 */
+    /** 음성 (1) */
     NEGATIVE,
-    /** 양성 */
+    /** 양성 (2) */
     POSITIVE
 }
 
@@ -43,18 +43,18 @@ export interface SurveyResult {
 }
 
 /**
- * 설문을 진행합니다
- *
+ * 설문을 제출합니다.
  * @param endpoint 관할 시/도 엔드포인트
- * @param token 설문 토큰 (로그인 토큰이 아닙니다!)
+ * @param secondToken 2차 로그인 토큰
  * @param survey 설문 내용
+ * @returns {Promise<SurveyResult>}
  */
-export async function registerSurvey(endpoint: string, token: string, survey: SurveyData = {
+export async function registerSurvey(endpoint: string, secondToken: string, survey: SurveyData = {
     Q1: false,
     Q2: CovidQuickTestResult.NONE,
     Q3: false
 }): Promise<SurveyResult> {
-    const user = await userInfo(endpoint, token)
+    const user = await userInfo(endpoint, secondToken)
     const clientVersion = await retrieveClientVersion()
     const data = {
         clientVersion,
@@ -78,7 +78,7 @@ export async function registerSurvey(endpoint: string, token: string, survey: Su
         upperToken: user[0].token,
         upperUserNameEncpt: user[0].name
     }
-    const response = await request('/registerServey', 'POST', data, endpoint, user[0].token)
+    const response = await fetchHcs('/registerServey', 'POST', data, endpoint, user[0].token)
     if (response.isError) {
         return {
             success: false,

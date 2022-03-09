@@ -1,0 +1,40 @@
+---
+sidebar_position: 8
+---
+
+# 설문 제출
+
+설문을 제출합니다.
+
+### 사용법
+
+```ts
+import {CovidQuickTestResult, SurveyData} from "hcs.js"
+
+const survey: SurveyData = {
+    Q1: false,
+    Q2: CovidQuickTestResult.NONE,
+    Q3: false
+}
+const result = await hcs.registerSurvey(school.endpoint, secondLogin.token, survey)
+```
+
+### 결과 예시
+
+[SurveyResult](/docs/api/SurveyResult)가 반환됩니다.
+
+#### 성공
+```ts
+{
+  success: true,
+  registeredAt: "2022-03-06 15:35:38" // 자가진단 실시 시간
+}
+```
+
+#### 실패
+```ts
+{
+  success: false,
+  message: "오류 메시지"
+}
+```

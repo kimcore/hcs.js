@@ -1,0 +1,11 @@
+.steps {
+    display: flex;
+    align-items: center;
+    padding: 2rem 0;
+    width: 100%;
+}
+
+.stepSvg {
+    height: 150px;
+    width: 150px;
+}
