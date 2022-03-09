@@ -10,10 +10,10 @@ jobs:
     name: Deploy docs to GitHub Pages
     runs-on: ubuntu-latest
     steps:
-      - uses: workflows/checkout@v2
+      - uses: actions/checkout@v2
       - name: Enter docs directory
         run: cd docs
-      - uses: workflows/setup-node@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: 16.x
           cache: npm
@@ -22,7 +22,7 @@ jobs:
       - name: Build website
         run: npm build
       - name: Deploy docs to GitHub Pages
-        uses: peaceiris/workflows-gh-pages@v3
+        uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
