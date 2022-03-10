@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/nightOwl')
 /** @type {import('@docusaurus/types').Config} */
 const config = {
     title: 'hcs.js',
-    tagline: '교육부 건강상태 자가진단 라이브러리',
+    tagline: '교육부 학생 건강상태 자가진단 라이브러리',
     url: 'https://hcs.js.org',
     baseUrl: '/',
     onBrokenLinks: 'throw',
@@ -39,6 +39,7 @@ const config = {
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
+            metadata: [{name: 'keywords', content: 'hcs.js, 교육부, 학생, 건강상태, 자가진단, 자가체크'}],
             navbar: {
                 title: "hcs.js",
                 logo: {
