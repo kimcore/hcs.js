@@ -32,14 +32,21 @@ const config = {
                 theme: {
                     customCss: require.resolve('./src/css/custom.css'),
                 },
-            }),
+                gtag: {
+                    trackingID: 'G-8VWQ0ML2XS',
+                    anonymizeIP: true,
+                }
+            })
         ],
     ],
 
     themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
         ({
-            metadata: [{name: 'keywords', content: 'hcs.js, 교육부, 학생, 건강상태, 자가진단, 자가체크'}],
+            metadata: [
+                {name: 'keywords', content: 'hcs.js, 교육부, 학생, 건강상태, 자가진단, 자가체크'},
+                {name: 'google-site-verification', content: 'bbN5D8ZrvozRVSsNV2pgXNnil2u4uBKENTTMUJZGhSg'}
+            ],
             navbar: {
                 title: "hcs.js",
                 logo: {
