@@ -5,9 +5,9 @@ export default function LatestVersion() {
     const [version, setVersion] = useState("...");
 
     useEffect(() => {
-        fetch("https://api.npms.io/v2/package/hcs.js").then(async r => {
+        fetch("https://raw.githubusercontent.com/kimcore/hcs.js/main/package.json").then(async r => {
             const json = await r.json();
-            setVersion(json['collected']['metadata']['version']);
+            setVersion(json['version']);
         });
     }, []);
 
