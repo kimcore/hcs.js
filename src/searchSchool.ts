@@ -14,6 +14,8 @@ export interface School {
     endpoint: string
     /** 학교식별번호 */
     schoolCode: string
+    /** 학교 검색 인증 키 */
+    searchKey: string
 }
 
 /**
@@ -31,7 +33,8 @@ export async function searchSchool(schoolName: string): Promise<School[]> {
             city: school["lctnScNm"],
             address: school["addres"],
             endpoint: school["atptOfcdcConctUrl"],
-            schoolCode: school["orgCode"]
+            schoolCode: school["orgCode"],
+            searchKey: response.key
         }
     })
 }
