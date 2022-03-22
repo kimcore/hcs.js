@@ -27,7 +27,7 @@ const example = async () => {
     console.log('생년월일 6자리를 입력해주세요.')
     const birthday = (await it.next()).value
 
-    const login = await hcs.login(school.endpoint, school.schoolCode, name, birthday)
+    const login = await hcs.login(school.endpoint, school.schoolCode, name, birthday, school.searchKey)
     if (!login.success) {
         console.log('로그인에 실패했습니다.')
         process.exit(0)
