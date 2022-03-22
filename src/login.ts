@@ -56,21 +56,21 @@ export interface LoginResultFailure {
  * @param schoolCode 학교식별번호
  * @param name 학생명
  * @param birthday 생년월일
+ * @param searchKey 학교 검색 인증 키
  * @returns {Promise<LoginResult>}
  */
-export async function login(endpoint: string, schoolCode: string, name: string, birthday: string): Promise<LoginResult> {
+export async function login(endpoint: string, schoolCode: string, name: string, birthday: string, searchKey: string): Promise<LoginResult> {
     const data = {
         birthday: encrypt(birthday),
         loginType: 'school',
         name: encrypt(name),
         orgCode: schoolCode,
-        stdntPNo: null
+        stdntPNo: null,
+        searchKey: searchKey
     }
     const response = await fetchHcs('/v2/findUser', 'POST', data, endpoint)
-    return response['isError'] ? {
-        success: false,
-        message: response['message']
-    } : {
+    if (!response.token || response['isError']) return { success: false, message: response['message'] }
+    return {
         success: true,
         agreementRequired: response['pInfAgrmYn'] === 'N',
         schoolName: response['orgName'],
