@@ -10,9 +10,10 @@ sidebar_position: 2
 
 ```ts
 const name = "엄준식" // 학생 이름
-const birthday = "040309" // 생년월일 6자리
+const birth = "040309" // 생년월일 6자리
+const password = "1234" // 비밀번호 4자리
 
-const login = await hcs.login(school.endpoint, school.schoolCode, name, birth, school.searchKey)
+const login = await hcs.login(school.endpoint, school.schoolCode, name, birth, school.searchKey, password)
 ```
 
 ### 결과 예시
@@ -27,7 +28,7 @@ const login = await hcs.login(school.endpoint, school.schoolCode, name, birth, s
   schoolName: "서울과학고등학교",
   name: "엄준식",
   birthday: "040309",
-  token: "Bearer ..." // 1차 로그인 토큰
+  token: "Bearer ..."
 }
 ```
 
@@ -35,6 +36,8 @@ const login = await hcs.login(school.endpoint, school.schoolCode, name, birth, s
 ```ts
 {
   success: false, // 성공 여부
+  failCount : 1,
+  remainingMinutes: 0,
   message: "오류 메시지"
 }
 ```

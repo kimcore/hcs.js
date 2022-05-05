@@ -9,7 +9,7 @@ export interface UpdateAgreementResult {
 /**
  * 개인정보처리방침에 동의합니다.
  * @param endpoint 관할 시/도 엔드포인트
- * @param token 1차 로그인 토큰
+ * @param token 토큰
  * @returns {Promise<UpdateAgreementResult>}
  */
 export async function updateAgreement(endpoint: string, token: string): Promise<UpdateAgreementResult> {

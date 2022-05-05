@@ -18,14 +18,14 @@ export interface UserInfo {
     name: string
     /** 학생식별코드 */
     UID: string
-    /** 1차 로그인 토큰 */
+    /** 토큰 */
     token: string
 }
 
 /**
  * 학생 정보를 확인합니다.
  * @param endpoint 관할 시/도 엔드포인트
- * @param token 1차 로그인 토큰
+ * @param token 토큰
  * @returns {Promise<UserInfo>}
  */
 export async function userInfo(endpoint: string, token: string): Promise<UserInfo[]> {

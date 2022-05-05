@@ -16,7 +16,7 @@ sidebar_position: 2
     name: string
     /** 생년월일 */
     birthday: string
-    /** 로그인 세션 토큰 */
+    /** 토큰 */
     token: string
 }
 ```
@@ -25,7 +25,11 @@ sidebar_position: 2
 ```ts
 {
     success: false
-    /** 오류 메시지 */
+    /** 로그인 실패 횟수 */
+    failCount?: number
+    /** 남은 시간 */
+    remainingMinutes?: number
+    /** 실패 사유 */
     message: string
 }
 ```

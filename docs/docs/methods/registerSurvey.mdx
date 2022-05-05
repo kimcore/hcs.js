@@ -1,5 +1,5 @@
 ---
-sidebar_position: 8
+sidebar_position: 5
 ---
 
 # 설문 제출
@@ -16,7 +16,7 @@ const survey: SurveyData = {
     Q2: CovidQuickTestResult.NONE,
     Q3: false
 }
-const result = await hcs.registerSurvey(school.endpoint, secondLogin.token, survey)
+const result = await hcs.registerSurvey(school.endpoint, login.token, survey)
 ```
 
 ### 결과 예시

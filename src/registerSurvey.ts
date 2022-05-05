@@ -45,16 +45,16 @@ export interface SurveyResult {
 /**
  * 설문을 제출합니다.
  * @param endpoint 관할 시/도 엔드포인트
- * @param secondToken 2차 로그인 토큰
+ * @param token 토큰
  * @param survey 설문 내용
  * @returns {Promise<SurveyResult>}
  */
-export async function registerSurvey(endpoint: string, secondToken: string, survey: SurveyData = {
+export async function registerSurvey(endpoint: string, token: string, survey: SurveyData = {
     Q1: false,
     Q2: CovidQuickTestResult.NONE,
     Q3: false
 }): Promise<SurveyResult> {
-    const user = await userInfo(endpoint, secondToken)
+    const user = await userInfo(endpoint, token)
     const clientVersion = await retrieveClientVersion()
     const data = {
         clientVersion,

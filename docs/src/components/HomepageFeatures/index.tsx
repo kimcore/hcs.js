@@ -14,8 +14,7 @@ const StepList: StepItem[] = [
         Svg: require('@site/static/img/undraw_insert_re_s97w.svg').default,
         description: (
             <>
-                이름, 생년월일, 학교 정보를 사용하여<br/>
-                1차 로그인을 진행합니다.
+                이름, 생년월일, 학교 정보와 비밀번호를 사용해 <code>hcs.login</code> 을 사용합니다.
             </>
         ),
     },
@@ -24,8 +23,8 @@ const StepList: StepItem[] = [
         Svg: require('@site/static/img/undraw_security_re_a2rk.svg').default,
         description: (
             <>
-                비밀번호를 사용한 2차 로그인을 진행합니다.<br/>
-                보안키보드는 라이브러리 내에서 처리됩니다.
+                hcs.js 내부에서 로그인 과정이 진행됩니다.<br/>
+                보안키보드 또한 알아서 처리됩니다.
             </>
         ),
     },
@@ -34,6 +33,7 @@ const StepList: StepItem[] = [
         Svg: require('@site/static/img/undraw_certificate_re_yadi.svg').default,
         description: (
             <>
+                <code>hcs.registerSurvey</code>를 통해<br/>
                 자가진단 설문을 제출합니다!
             </>
         ),

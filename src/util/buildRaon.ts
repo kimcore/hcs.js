@@ -1,3 +1,5 @@
+
+
 import HmacSHA256 from "crypto-js/hmac-sha256"
 import fetch from "node-fetch"
 import crypto from "crypto"
@@ -13,11 +15,11 @@ const keysXY = [
     [45, 107], [45, 67], [45, 27], [85, 27]
 ]
 
-async function fetchRaon(url: string, body?: string): Promise<string> {
+async function fetchRaon(url: string, body?: {}): Promise<string> {
     const options = body ? {method: "POST", headers: {"Content-Type": "application/x-www-form-urlencoded"}} : {}
     return fetch(url, {
         agent: defaultAgent,
-        body,
+        body: body ? new URLSearchParams(body).toString() : null,
         ...options,
     }).then(r => r.text())
 }
@@ -28,14 +30,18 @@ async function buildRaon(password: string) {
     const genSessionKey = crypto.randomBytes(16).toString("hex")
     const sessionKey = genSessionKey.split("").map(char => Number("0x0" + char))
     const encSessionKey = encryptWithPublicKey(genSessionKey)
-    const keyIndex = await fetchRaon(baseUrl, `op=getKeyIndex&name=password&keyboardType=number&initTime=${initTime}`)
-    const dummy = await fetchRaon(baseUrl, `op=getDummy&keyboardType=number&fieldType=password&keyIndex=${keyIndex}&talkBack=true`)
+    const keyIndex = await fetchRaon(baseUrl, {
+        op: "getKeyIndex", name: "password", keyboardType: "number", initTime
+    })
+    const dummy = await fetchRaon(baseUrl, {
+        op: "getDummy", keyboardType: "number", fieldType: "password", keyIndex, talkBack: true
+    })
     const keys = dummy.split(",")
     let enc = password.split("").map(n => {
         const [x, y] = keysXY[keys.indexOf(n)]
         return delimiter + seedEncrypt(`${x} ${y}`, sessionKey, initTime)
     }).join("")
-    // 128
+    // 128 is random value in original script
     for (let j = 4; j < 128; j++) {
         enc += delimiter + seedEncrypt("# 0 0", sessionKey, initTime)
     }

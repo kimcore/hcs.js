@@ -12,8 +12,10 @@ export interface School {
     address: string
     /** 관할 시/도 엔드포인트 */
     endpoint: string
-    /** 학교식별번호 */
+    /** 암호화된 학교식별번호, 로그인 시에는 이것을 사용해야 합니다. */
     schoolCode: string
+    /** 학교식별번호 */
+    rawSchoolCode: string
     /** 학교 검색 인증 키 */
     searchKey: string
 }
@@ -34,6 +36,7 @@ export async function searchSchool(schoolName: string): Promise<School[]> {
             address: school["addres"],
             endpoint: school["atptOfcdcConctUrl"],
             schoolCode: school["orgCode"],
+            rawSchoolCode: school["juOrgCode"],
             searchKey: response.key
         }
     })
