@@ -27,13 +27,14 @@
   },
   "license": "MIT",
   "description": "교육부 학생 건강상태 자가진단 라이브러리",
-  "version": "2.1.4",
+  "version": "2.1.5",
   "dependencies": {
     "crypto-js": "^4.1.1",
     "fetch-cookie": "^1.0.0",
     "jsbn": "^1.1.0",
     "jsencrypt": "3.0.0-rc.1",
-    "node-fetch": "^2.6.1"
+    "node-fetch": "^2.6.1",
+    "random-useragent": "^0.5.0"
   },
   "devDependencies": {
     "@types/node": "^16.7.10",
